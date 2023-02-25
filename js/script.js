@@ -24,7 +24,8 @@ const displayAllNewsCategory = categories =>{
 /* load all news in a category */
 
  const loadSingleNewsCategory = (id) =>{
-    //  console.log(id);
+    /* spinning start */
+    toggleSpinner(true);
      const url =`https://openapi.programming-hero.com/api/news/category/${id}`;
       // console.log(url);
      fetch(url)
@@ -59,7 +60,7 @@ const displayAllNewsCategory = categories =>{
   <div class="col-md-8">
     <div class="card-body mb-5">
       <h5 class="card-title">${news.title}</h5>
-      <p class="card-text ellipsis">${news.details ? news.details.slice(0,460) : 'no news found'}</p>
+      <p class="card-text ellipsis">${news.details.slice(0,460)}</p>
       <div>
       <div class="d-flex justify-content-start"><img class="image img-fluid rounded-circle" src="${news.author.img}">
         <div class="ms-2">
@@ -74,7 +75,19 @@ const displayAllNewsCategory = categories =>{
     `
     newsContainer.appendChild(newsDiv);
     });
+    /* spining end */
+    toggleSpinner(false);
  }
+  /* spinner function */
+ const toggleSpinner = isLoading =>{
+  const loaderSection = document.getElementById('loader');
+  if (isLoading) {
+    loaderSection.classList.remove('d-none');
+  } else{
+    loaderSection.classList.add('d-none');
+
+  }
+}
 
   loadSingleNewsCategory("01");
   loadAllNewsCategory();
