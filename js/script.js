@@ -35,11 +35,21 @@ const displayAllNewsCategory = categories =>{
 /* display all news in a category */
 
  const displayNews = data =>{
-    // console.log(data);
+    //  console.log(data.length);
+     const toalNews = document.getElementById('total-news');
+     toalNews.innerText = `total news found : ${data.length}`
     const newsContainer = document.getElementById('news-container');
-    newsContainer.innerHTML ='';
+    /* no news found and clean other category news */
+    if (data.length === 0) {
+      newsContainer.innerHTML = `<P class="h3 text-danger text-center">No news found</p>`;
+    } else {
+
+      newsContainer.innerHTML ='';
+    }
     data.forEach(news => {
-          console.log(news);
+           console.log(news);
+
+        
         const newsDiv = document.createElement('div');
     newsDiv.classList.add('row', 'g-o','mt-2','border');
     newsDiv.innerHTML = `
@@ -49,7 +59,7 @@ const displayAllNewsCategory = categories =>{
   <div class="col-md-8">
     <div class="card-body mb-5">
       <h5 class="card-title">${news.title}</h5>
-      <p class="card-text ellipsis">${news.details.slice(0,460)}</p>
+      <p class="card-text ellipsis">${news.details ? news.details.slice(0,460) : 'no news found'}</p>
       <div>
       <div class="d-flex justify-content-start"><img class="image img-fluid rounded-circle" src="${news.author.img}">
         <div class="ms-2">
